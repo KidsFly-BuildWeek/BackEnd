@@ -3,7 +3,7 @@ const db = require('../../data/dbConfig.js');
 module.exports = {
     getUsers,
     findUserById,
-    findByUsername,
+    findByEmail,
     addUser,
     removeUser,
     editUser
@@ -17,8 +17,8 @@ function findUserById(id) {
     return db('users').where({ id }).first();
 }
 
-function findByUsername(username) {
-    return db('users').where({ username }).first();
+function findByEmail(email) {
+    return db('users').where({ email }).first();
 }
 
 function addUser(user) {
