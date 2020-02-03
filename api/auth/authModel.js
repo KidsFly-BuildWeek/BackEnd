@@ -29,6 +29,8 @@ function removeUser(id) {
     return db('users').where({ id }).del();
 }
 
-function editUser(id, changes) {
-    return db('users').where({ id }).update(changes);
+async function editUser(id, changes) {
+    await db('users').where({ id }).update(changes)
+    return db('users').where({ id }).select('email', 'name', 'street', 'city', 'state', 'zip', 'airport', 'phone', 'role', 'rating').first();
+    
 }
