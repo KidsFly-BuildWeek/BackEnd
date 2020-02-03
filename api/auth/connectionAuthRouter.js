@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.JWT_SECRET || 'lk234k234lkjhbjbhz34ndfknJJGVC6674578dfsa';
 
 router.get('/:email', async (req, res) => {
-    const connections = await auth.getConnections(req.params.email);
+    const user = await auth.getConnectionUserByEmail(req.params.email);
+    const connections = await auth.getConnections(user.id);
     return res.status(200).json(connections);
 })
 
