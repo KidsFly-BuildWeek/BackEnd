@@ -4,13 +4,13 @@ const auth = require('./authModel.js');
 const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.JWT_SECRET || 'lk234k234lkjhbjbhz34ndfknJJGVC6674578dfsa';
 
-// Get all users
-// router.get('/', (req, res) => {
-//     auth.getUsers()
-//     .then(response => {
-//         return res.status(200).json(response);
-//     })
-// })
+//Get all users
+router.get('/', (req, res) => {
+    auth.getUsers()
+    .then(response => {
+        return res.status(200).json(response);
+    })
+})
 
 router.post('/register', (req, res) => {
     if (req.body && req.body.email && req.body.password) {

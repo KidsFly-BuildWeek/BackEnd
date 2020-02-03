@@ -2,7 +2,8 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const authRouter = require('./auth/authRouter.js');
-const connection = require('./auth/connectionAuthRouter.js');
+const connectionRouter = require('./auth/connectionAuthRouter.js');
+const flightRouter = require('../api/flights/flightRouter.js');
 
 const server = express();
 
@@ -15,6 +16,7 @@ server.get('/', (req, res) => {
 })
 
 server.use('/api/auth', authRouter);
-server.use('/api/connection', connection);
+server.use('/api/connection', connectionRouter);
+server.use('/api/flights', flightRouter);
 
 module.exports = server;
