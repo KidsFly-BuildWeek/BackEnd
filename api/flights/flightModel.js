@@ -14,7 +14,7 @@ function getFlights() {
 }
 
 function getFlightByFlightNumber(flight_number) {
-    return db('flights').where({ flight_number }).first();
+    return db('flights').where({ flight_number }).select('airline', 'airport', 'flight_number', 'flight_date', 'flight_time').first();
 }
 
 function getUserFlights(user_id) {
@@ -25,10 +25,10 @@ function addFlight(flight) {
     return db('flights').insert(flight);
 }
 
-function removeFlight(id) {
-    return db('flights').where({ id }).del();
+function removeFlight(flight_number) {
+    return db('flights').where({ flight_number }).del();
 }
 
-function editFlight(id, changes) {
-    return db('flights').where({ id }).update(changes);
+function editFlight(flight_number, changes) {
+    return db('flights').where({ flight_number }).update(changes);
 }
