@@ -2,15 +2,15 @@ const router = require('express').Router();
 const bc = require('bcrypt');
 const auth = require('./authModel.js');
 const jwt = require('jsonwebtoken');
-// const isAdmin = require('./admin-middleware.js');
 const jwtSecret = process.env.JWT_SECRET || 'lk234k234lkjhbjbhz34ndfknJJGVC6674578dfsa';
 
-router.get('/', (req, res) => {
-    auth.getUsers()
-    .then(response => {
-        return res.status(200).json(response);
-    })
-})
+// Get all users
+// router.get('/', (req, res) => {
+//     auth.getUsers()
+//     .then(response => {
+//         return res.status(200).json(response);
+//     })
+// })
 
 router.post('/register', (req, res) => {
     if (req.body && req.body.email && req.body.password) {
@@ -63,6 +63,31 @@ router.post('/login', (req, res) => {
                 return res.status(400).json({ error: "User information is incorrect, or user doesn't exist." });
             }
         })
+    }
+})
+
+router.put('/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const { id } = await auth.findByEmail(email);
+        const user = await auth.editUser(id, req.body);
+        return res.status(200).json(user);
+    } catch {
+        return res.status(400).json({ error: "Cannot edit user. It doesn't exist." });
+    }
+})
+
+router.delete('/:email', async (req, res) => {
+    try {
+        const { id } = await auth.findByEmail(req.params.email);
+        const removed = await auth.removeUser(id);
+        if (removed === 1) {
+            return res.status(200).json({ message: `${req.params.email} was removed.`});
+        } else {
+            return res.status(500).json({ error: "Couldn't remove user." });
+        }
+    } catch {
+        return res.status(400).json({ error: "Cannot delete user. It doesn't exist." });
     }
 })
 
