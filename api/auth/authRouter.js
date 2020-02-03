@@ -28,6 +28,13 @@ router.post('/register', (req, res) => {
                             password: user.password,
                         }
                         const token = signToken(signPackage);
+                        if (resp.role.toLowerCase() === 'admin') {
+                            return res.status(201).json({
+                                message: `${user.email} was registered and logged in as an admin.`,
+                                token: token,
+                                role: user.role
+                            });
+                        }
                         return res.status(201).json({
                             message: `${user.email} was registered and logged in.`,
                             token: token
@@ -50,12 +57,20 @@ router.post('/login', (req, res) => {
     if (req.body && req.body.email && req.body.password) {
         auth.findByEmail(req.body.email).then(response => {
             if (response) {
+                console.log(response)
                 if (bc.compareSync(req.body.password, response.password)) {
                     const token = signToken(req.body);
+                    if (response.role.toLowerCase() === 'admin') {
+                        return res.status(201).json({
+                            message: `${req.body.email} was logged in as an admin.`,
+                            token: token,
+                            role: response.role
+                        });
+                    }
                     return res.status(201).json({
-                        message: `${response.email} was logged in successfully.`,
+                        message: `${req.body.email} was registered and logged in.`,
                         token: token
-                    })
+                    });
                 } else {
                     return res.status(400).json({ error: "User information is incorrect." })
                 }

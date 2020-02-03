@@ -12,10 +12,10 @@ module.exports = {
 // This may need editing
 async function getConnections(id) {
     const connection = await db('connection_flights')
-    .where({ id })
     // .join('connection', 'connection.id', 'connection_flights.connection_id')
     .join('flights', 'flights.id', 'connection_flights.flight_id')
     .join('users', 'users.id', 'connection_flights.user_id')
+    .where('connection_flights.user_id', '=', id)
     .select('users.name', 'users.email', 'flights.airline', 'flights.airport', 'flights.flight_number', 'flights.flight_date', 'flights.flight_time');
     return connection;
 }
