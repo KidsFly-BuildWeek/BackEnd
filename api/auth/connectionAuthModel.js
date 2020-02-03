@@ -4,7 +4,7 @@ module.exports = {
     getConnections,
     addConnectionUser,
     removeConnectionUser,
-    editConnectionUser,
+    // editConnectionUser,
     getConnectionUserById,
     getConnectionUserByEmail
 }
@@ -32,10 +32,10 @@ function removeConnectionUser(id) {
     return db('connection').where({ id }).del();
 }
 
-async function editConnectionUser(id, changes) {
-    const [id] = await db('connection').where({ id }).update(changes);
-    return getConnectionUserById(id);
-}
+// async function editConnectionUser(id, changes) {
+//     const change = await db('connection').where({ id }).update(changes);
+//     return getConnectionUserById(change.id);
+// }
 
 function getConnectionUserByEmail(email) {
     return db('connection').where({ email }).first();
