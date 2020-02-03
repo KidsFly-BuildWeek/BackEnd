@@ -7,7 +7,7 @@ Kids Fly BE
 
 ### Endpoints
 
-#### - Register - `[POST] /register`
+#### Register - `[POST] /register`
 
 ##### Request Body
 
@@ -63,3 +63,48 @@ Upon successful login, the API will return an object as followed:
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRpbW90aHkxIiwiaWF0IjoxNTgwNjY5ODAwLCJleHAiOjE1ODA3NTYyMDB9.0d6amBRv2VaYiNhO8dPWuUzRJzDQdCw_fQK6FTqjYkQ"
 }
 ```
+
+#### `[DELETE] /:email`
+
+To delete user, send a DELETE request to /:email, I.E. `/api/auth/tim@tim.com`
+
+#### `[PUT] /:email`
+
+To edit a user, send a PUT request to /:email, I.E. `/api/auth/tim@tim.com`
+
+##### Request Body
+
+```
+{
+"email": "timothy@timothy.com", // required field (string)
+"password": "password", // required field (string)
+"name": null, // (string)
+"street": null, // (string)
+"city": null, // (string)
+"state": null, // (string)
+"zip": null, // (int)
+"airport": null, // (string)
+"phone": null, (int)
+"role": "traveler" // 'admin' or 'traveler' (string)
+}
+```
+
+##### Response Object
+
+Upon successful user edit, the response will look like this:
+
+```
+{
+    "email": "timothy@gmail.com",
+    "name": "Tim",
+    "street": "Jefferson Ave.",
+    "city": null,
+    "state": null,
+    "zip": null,
+    "airport": null,
+    "phone": null,
+    "role": "traveler",
+    "rating": null
+}
+```
+
