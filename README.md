@@ -76,7 +76,7 @@ To edit a user, send a PUT request to /:email, I.E. `/api/auth/tim@tim.com`
 
 ```
 {
-"email": "timothy@timothy.com", // required field (string)
+"email": "tim@tim.com", // required field (string)
 "password": "password", // required field (string)
 "name": null, // (string)
 "street": null, // (string)
