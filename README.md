@@ -8,9 +8,9 @@ Kids Fly BE
 
 ### Endpoints
 
-#### Get Users = `[GET] /auth !restricted
+#### Get Users = `[GET] /auth !restricted `admin account needed`
 
-Test your token, and role with this route. It will require an admin validated token.
+Test your token, and role with this route.
 
 #### Register - `[POST] /auth/register`
 
