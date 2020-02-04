@@ -8,9 +8,9 @@ Kids Fly BE
 
 ### Endpoints
 
-#### Get Users = `[GET] /auth !restricted
+#### Get Users = `[GET] /auth !restricted `admin account needed`
 
-Test your token, and role with this route. It will require an admin validated token.
+Test your token, and role with this route.
 
 #### Register - `[POST] /auth/register`
 
@@ -246,4 +246,3 @@ To add a user to a flight, send a POST request to the url i.e. `/api/user_flight
 #### `[DELETE] /:flight_number` !restricted `admin account needed`
 
 To delete a flight from a user, send a DELETE request to the url with the flight number, i.e. `/api/user_flights/F34`
-
