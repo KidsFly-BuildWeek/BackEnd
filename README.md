@@ -221,3 +221,26 @@ To edit a flight, send a PUT api call to the url with an update object i.e. `/ap
     "flight_time": "06:00"
 }
 ```
+
+## User Flights
+- Root URL /user_flights
+
+#### `[GET] /` !restricted
+
+To get all flights for a user, send a GET request to `/api/user_flights/`
+
+#### `[POST] /:flight_number` !restricted
+
+To add a user to a flight, send a POST request to the url i.e. `/api/user_flights/F34` with the following body:
+
+```
+{
+	"carry_ons": "2",
+	"number_of_children": "2",
+	"special_needs_req": false
+}
+```
+
+#### `[DELETE] /:flight_number` !restricted `admin account needed`
+
+To delete a flight from a user, send a DELETE request to the url with the flight number, i.e. `/api/user_flights/F34`
