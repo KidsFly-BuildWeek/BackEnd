@@ -8,14 +8,14 @@ const jwtSecret = process.env.JWT_SECRET || 'lk234k234lkjhbjbhz34ndfknJJGVC66745
 //Get all users
 router.get('/', restricted, (req, res) => {
     console.log(req.fullUser.role)
-    if (req.fullUser && req.fullUser.role === 'admin') {
+    // if (req.fullUser && req.fullUser.role === 'admin') {
         auth.getUsers()
         .then(response => {
             return res.status(200).json(response);
         })
-    } else {
-        return res.status(400).json({ error: "You do not have the correct privileges to access this resource." });
-    }
+    // } else {
+    //     return res.status(400).json({ error: "You do not have the correct privileges to access this resource." });
+    // }
 })
 
 router.post('/register', (req, res) => {
