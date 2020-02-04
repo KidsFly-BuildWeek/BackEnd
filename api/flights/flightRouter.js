@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const flight = require('./flightModel.js');
+const users = require('../auth/authModel.js');
+const restricted = require('../auth/restrictedMiddleware.js');
 
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
     flight.getFlights()
     .then(response => {
         return res.status(200).json(response);
     })
 })
 
-router.post('/', async (req, res) => {
+router.post('/', restricted, async (req, res) => {
     try {
         const { airline, airport, flight_number, flight_date, flight_time } = req.body;
         const addedFlight = await flight.addFlight(req.body);
@@ -21,20 +23,24 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:flight_number', (req, res) => {
-    flight.removeFlight(req.params.flight_number)
-    .then(() => {
-        return res.status(200).json({
-            message: `Flight ${req.params.flight_number} was removed`
+router.delete('/:flight_number', restricted, async (req, res) => {
+    if (req.fullUser && req.fullUser.role.toLowerCase() === 'admin') {
+        flight.removeFlight(req.params.flight_number)
+        .then(() => {
+            return res.status(200).json({
+                message: `Flight ${req.params.flight_number} was removed`
+            })
         })
-    })
-    .catch(err => {
-        console.log(err);
-        return res.status(500).json({ error: "Something went wrong deleting flight." })
-    })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).json({ error: "Something went wrong deleting flight." })
+        })
+    } else {
+        return res.status(400).json({ error: "You do not have the correct privileges for that." })
+    }
 })
 
-router.put('/:flight_number', async (req, res) => {
+router.put('/:flight_number', restricted, async (req, res) => {
     if (req.body) {
         const editedFlight = await flight.editFlight(req.params.flight_number, req.body);
         const returnedFlight = await flight.getFlightByFlightNumber(req.params.flight_number);

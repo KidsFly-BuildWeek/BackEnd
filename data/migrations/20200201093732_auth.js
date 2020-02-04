@@ -33,21 +33,25 @@ exports.up = function(knex) {
     table.integer('flight_id').unsigned().references('id').inTable('flights').onDelete('RESTRICT').onUpdate('CASCADE');
     table.integer('user_id').unsigned().references('id').inTable('users').onDelete('RESTRICT').onUpdate('CASCADE');
     table.integer('connection_id').unsigned().references('id').inTable('users').onDelete('RESTRICT').onUpdate('CASCADE');
+    table.boolean('completed').defaultTo(false);
   })
   .createTable('user_flights', table => {
       table.increments();
       table.integer('user_id').unsigned().references('id').inTable('users')
       .onDelete('RESTRICT').onUpdate('CASCADE');
-      table.integer('flight_id').unsigned().references('id').inTable('flights')
+      table.integer('flight_id').unsigned().unique().references('id').inTable('flights')
       .onDelete('RESTRICT').onUpdate('CASCADE');
-      table.integer('carry_ons').unsigned();
-      table.integer('number_of_children').unsigned();
+      table.integer('carry_ons').unsigned().notNullable();
+      table.integer('number_of_children').unsigned().notNullable();
       table.boolean('special_needs_req').defaultTo(false);
+      table.boolean('completed').defaultTo(false);
   })
 };
 
 exports.down = function(knex) {
   return knex.schema
+    .dropTableIfExists('connection_flights')
+    .dropTableIfExists('connection')
     .dropTableIfExists('user_flights')
     .dropTableIfExists('flights')
     .dropTableIfExists('users');
