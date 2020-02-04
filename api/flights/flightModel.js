@@ -6,11 +6,16 @@ module.exports = {
     getUserFlights,
     addFlight,
     removeFlight,
-    editFlight
+    editFlight,
+    getFlightId
 }
 
 function getFlights() {
     return db('flights')
+}
+
+function getFlightId(flight_number) {
+    return db('flights').where({ flight_number }).select('id').first();
 }
 
 function getFlightByFlightNumber(flight_number) {

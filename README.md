@@ -4,6 +4,7 @@ Kids Fly BE
 # Authentication
 - Root URL `https://kids-fly-be.herokuapp.com/api`
 - Tokens will be needed for authenticated routes.
+- Routes will decode the token and grab information needed for user specific actions.
 
 ### Endpoints
 
@@ -173,6 +174,7 @@ To edit a connection, send a PUT request to /:email, I.E. `/api/connection/tim@t
 
 
 ## Flights
+- Root URL /flights
 
 #### `[GET] /` !restricted
 

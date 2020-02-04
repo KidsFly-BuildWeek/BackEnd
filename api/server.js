@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRouter = require('./auth/authRouter.js');
 const connectionRouter = require('./auth/connectionAuthRouter.js');
 const flightRouter = require('../api/flights/flightRouter.js');
+const userFlightsRouter = require('./flights/userFlightsRouter.js');
 
 const server = express();
 
@@ -18,5 +19,6 @@ server.get('/', (req, res) => {
 server.use('/api/auth', authRouter);
 server.use('/api/connection', connectionRouter);
 server.use('/api/flights', flightRouter);
+server.use('/api/user_flights', userFlightsRouter)
 
 module.exports = server;

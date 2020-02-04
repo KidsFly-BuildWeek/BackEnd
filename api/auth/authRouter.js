@@ -2,14 +2,20 @@ const router = require('express').Router();
 const bc = require('bcrypt');
 const auth = require('./authModel.js');
 const jwt = require('jsonwebtoken');
+const restricted = require('./restrictedMiddleware.js');
 const jwtSecret = process.env.JWT_SECRET || 'lk234k234lkjhbjbhz34ndfknJJGVC6674578dfsa';
 
 //Get all users
-router.get('/', (req, res) => {
-    auth.getUsers()
-    .then(response => {
-        return res.status(200).json(response);
-    })
+router.get('/', restricted, (req, res) => {
+    console.log(req.fullUser.role)
+    if (req.fullUser && req.fullUser.role === 'admin') {
+        auth.getUsers()
+        .then(response => {
+            return res.status(200).json(response);
+        })
+    } else {
+        return res.status(400).json({ error: "You do not have the correct privileges to access this resource." });
+    }
 })
 
 router.post('/register', (req, res) => {
@@ -57,9 +63,13 @@ router.post('/login', (req, res) => {
     if (req.body && req.body.email && req.body.password) {
         auth.findByEmail(req.body.email).then(response => {
             if (response) {
-                console.log(response)
                 if (bc.compareSync(req.body.password, response.password)) {
-                    const token = signToken(req.body);
+                    const sendUser = {
+                        ...response,
+                        email: req.body.email,
+                        password: req.body.password
+                    }
+                    const token = signToken(sendUser);
                     if (response.role.toLowerCase() === 'admin') {
                         return res.status(201).json({
                             message: `${req.body.email} was logged in as an admin.`,
@@ -109,7 +119,8 @@ router.delete('/:email', async (req, res) => {
 function signToken(user) {
     const payload = {
       userId: user.id,
-      username: user.email
+      username: user.email,
+      fullUser: user
     }
   
     const options = {

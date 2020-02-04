@@ -92,7 +92,8 @@ router.delete('/:email', async (req, res) => {
 function signToken(user) {
     const payload = {
       userId: user.id,
-      username: user.email
+      username: user.email,
+      fullUser: user
     }
   
     const options = {
