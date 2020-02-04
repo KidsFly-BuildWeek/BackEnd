@@ -7,9 +7,9 @@ Kids Fly BE
 
 ### Endpoints
 
-#### Get Users = `[GET] /auth !restricted
+#### Get Users = `[GET] /auth !restricted `admin account needed`
 
-Test your token, and role with this route. It will require an admin validated token.
+Test your token, and role with this route.
 
 #### Register - `[POST] /auth/register`
 
@@ -204,7 +204,7 @@ Get all flights.
 }
 ```
 
-#### `[DELETE] /:flight_number` !restricted
+#### `[DELETE] /:flight_number` !restricted `admin account needed`
 
 To delete a flight, send a DELETE api call to the delete url i.e. `/api/flights/F33`
 
