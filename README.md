@@ -7,6 +7,10 @@ Kids Fly BE
 
 ### Endpoints
 
+#### Get Users = `[GET] /auth !restricted
+
+Test your token, and role with this route. It will require an admin validated token.
+
 #### Register - `[POST] /auth/register`
 
 ##### Request Body
@@ -64,7 +68,7 @@ Upon successful login, the API will return an object as followed:
 }
 ```
 
-#### `[DELETE] /auth/:email`
+#### `[DELETE] /auth/:email` 
 
 To delete user, send a DELETE request to /:email, I.E. `/api/auth/tim@tim.com`
 
@@ -166,3 +170,54 @@ To delete a connection, send a DELETE request to /:email, I.E. `/api/connection/
 #### `[PUT] /connection/:email`
 
 To edit a connection, send a PUT request to /:email, I.E. `/api/connection/tim@tim.com`
+
+
+## Flights
+
+#### `[GET] /` !restricted
+
+Get all flights.
+
+#### `[POST] /` !restricted
+
+##### Request Body
+
+```
+{
+	"airline": "Southwest", // required (string)
+	"airport": "MCD", // required (string)
+	"flight_number": "F33", // required (string)
+	"flight_date": "2020-03-22", // required (date)
+	"flight_time": "06:00" // required (time)
+}
+```
+
+##### Response Object
+
+```
+{
+    "airline": "Southwest",
+    "airport": "MCD",
+    "flight_number": "F33",
+    "flight_date": "2020-03-22",
+    "flight_time": "06:00"
+}
+```
+
+#### `[DELETE] /:flight_number` !restricted
+
+To delete a flight, send a DELETE api call to the delete url i.e. `/api/flights/F33`
+
+#### `[PUT] /:flight_number` !restricted
+
+To edit a flight, send a PUT api call to the url with an update object i.e. `/api/flights/F33`
+
+```
+{
+    "airline": "Delta",
+    "airport": "MCD",
+    "flight_number": "F34",
+    "flight_date": "2020-03-22",
+    "flight_time": "06:00"
+}
+```
