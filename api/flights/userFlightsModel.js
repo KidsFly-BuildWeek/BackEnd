@@ -10,7 +10,7 @@ module.exports = {
 
 async function getUserFlights(id) {
     const flights = await db('user_flights')
-    .join('users', 'users.id', id)
+    .join('users', 'users.id', 'user_flights.user_id')
     .join('flights', 'flights.id', 'user_flights.flight_id')
     .where('user_flights.user_id', '=', id)
     .select('flights.flight_number', 'flights.flight_date', 'flights.flight_time', 'users.name', 'users.email', 'user_flights.number_of_children', 'user_flights.special_needs_req', 'user_flights.carry_ons');

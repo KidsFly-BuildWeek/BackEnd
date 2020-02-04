@@ -39,7 +39,7 @@ exports.up = function(knex) {
       table.increments();
       table.integer('user_id').unsigned().references('id').inTable('users')
       .onDelete('RESTRICT').onUpdate('CASCADE');
-      table.integer('flight_id').unsigned().unique().references('id').inTable('flights')
+      table.integer('flight_id').unsigned().references('id').inTable('flights')
       .onDelete('RESTRICT').onUpdate('CASCADE');
       table.integer('carry_ons').unsigned().notNullable();
       table.integer('number_of_children').unsigned().notNullable();
