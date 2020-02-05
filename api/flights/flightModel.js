@@ -3,6 +3,7 @@ const db = require('../../data/dbConfig.js');
 module.exports = {
     getFlights,
     getFlightByFlightNumber,
+    getFlightByFlightNumberForId,
     getUserFlights,
     addFlight,
     removeFlight,
@@ -15,6 +16,10 @@ function getFlights() {
 }
 
 function getFlightId(flight_number) {
+    return db('flights').where({ flight_number }).select('id').first();
+}
+
+function getFlightByFlightNumberForId(flight_number) {
     return db('flights').where({ flight_number }).select('id').first();
 }
 
