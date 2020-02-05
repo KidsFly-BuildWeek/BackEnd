@@ -30,6 +30,7 @@ exports.up = function(knex) {
     table.string('name', 128);
   })
   .createTable('connection_flights', table => {
+    table.increments();
     table.integer('flight_id').unsigned().references('id').inTable('flights').onDelete('RESTRICT').onUpdate('CASCADE');
     table.integer('user_id').unsigned().references('id').inTable('users').onDelete('RESTRICT').onUpdate('CASCADE');
     table.integer('connection_id').unsigned().references('id').inTable('users').onDelete('RESTRICT').onUpdate('CASCADE');
