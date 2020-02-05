@@ -56,4 +56,64 @@ router.post('/:user_email/:connection_email/:flight_number', async (req, res) =>
     }
 }) 
 
+router.delete('/:flight_number/:connection_email', async (req, res) => {
+    const { flight_number, connection_email } = req.params;
+    const connection_user = await connection_users.getConnectionUserByEmail(connection_email);
+    const connection_id = connection_user.id;
+    const flight = await flights.getFlightByFlightNumberForId(flight_number);
+    const flight_id = flight.id;
+    const removed = await connection.removeUserConnection(connection_id, flight_id);
+    
+    if (removed === 1 || removed === '1') {
+        return res.status(200).json({
+            message: `Flight ${flight_number} was removed as a KidsFlyConnection for user ${connection_email}`
+        })
+    } else {
+        return res.status(400).json({ error: "Connection was not removed." });
+    }
+})
+
+router.put('/:flight_number/:connection_email', async (req, res) => {
+    let flightId, connectionId = 0;
+    let users_array = [];
+    const users = await user.getUsers()
+    users.map(element => {
+        return users_array.push({
+            user_id: element.id,
+            user_email: element.email
+        })
+    })
+    let flights_array = [];
+    const flight = await flights.getFlights();
+    flight.map(e => {
+        return flights_array.push({
+            flight_id: e.id,
+            flight_number: e.flight_number
+        })
+    })
+    users_array.forEach(el => {
+        if (req.params.connection_email === el.user_email) {
+            connectionId = el.user_id;
+        }
+    })
+    flights_array.forEach(ele => {
+        if (req.params.flight_number === ele.flight_number) {
+            flightId = ele.flight_id;
+        }
+    })
+    if (connectionId > 0 && flightId > 0) {
+        if (req.body) {
+            await connection.editUserConnection(connectionId, flightId, req.body);
+            connection.getConnectionsForUser(connectionId)
+            .then(response => {
+                return res.status(200).json(response);
+            })
+        } else {
+            return res.status(400).json({ error: "You must include one property to edit." })
+        }
+    } else {
+        return res.status(400).json({ error: "KidsFlyConnection user or Flight do not exist." })
+    }
+})
+
 module.exports = router;

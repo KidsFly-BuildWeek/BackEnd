@@ -3,10 +3,8 @@ const db = require('../../data/dbConfig.js');
 module.exports = {
     getConnectionsForUser,
     addUserConnection,
-    // removeUserConnection,
-    // getConnectionId,
-    // editUserConnection,
-    // toggleCompleted
+    removeUserConnection,
+    editUserConnection,
 }
 
 async function getConnectionsForUser(id) {
@@ -24,8 +22,16 @@ function addUserConnection(connection) {
     return db('connection_flights').insert(connection);
 }
 
-// function getConnectionId(connection_id, flight_id) {
-//     return db('connecti')
-// }
+function removeUserConnection(connection_id, flight_id) {
+    return db('connection_flights')
+    .where('connection_id', '=', connection_id)
+    .andWhere('flight_id', '=', flight_id)
+    .del();
+}
 
-// function toggleCompleted(id) {}
+function editUserConnection(connection_id, flight_id, changes) {
+    return db('connection_flights')
+    .where('connection_id', '=', connection_id)
+    .andWhere('flight_id', '=', flight_id)
+    .update(changes);
+}
