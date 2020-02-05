@@ -1,11 +1,12 @@
 const db = require('../../data/dbConfig.js');
 
 module.exports = {
-    // getConnections,
     getConnectionsForUser,
     addUserConnection,
     // removeUserConnection,
-    // editUserConnection
+    // getConnectionId,
+    // editUserConnection,
+    // toggleCompleted
 }
 
 async function getConnectionsForUser(id) {
@@ -22,3 +23,9 @@ async function getConnectionsForUser(id) {
 function addUserConnection(connection) {
     return db('connection_flights').insert(connection);
 }
+
+// function getConnectionId(connection_id, flight_id) {
+//     return db('connecti')
+// }
+
+// function toggleCompleted(id) {}
