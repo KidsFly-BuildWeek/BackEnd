@@ -11,8 +11,12 @@ module.exports = {
     getFlightId
 }
 
+// function getFlights() {
+//     return db('flights').select('airline', 'airport', 'flight_number', 'flight_date', 'flight_time');
+// }
+
 function getFlights() {
-    return db('flights').select('airline', 'airport', 'flight_number', 'flight_date', 'flight_time');
+    return db('flights');
 }
 
 function getFlightId(flight_number) {
