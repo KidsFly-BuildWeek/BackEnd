@@ -1,10 +1,15 @@
 const db = require('../../data/dbConfig.js');
 
 module.exports = {
+    getConnections,
     getConnectionsForUser,
     addUserConnection,
     removeUserConnection,
     editUserConnection,
+}
+
+function getConnections() {
+    return db('connection_flights');
 }
 
 async function getConnectionsForUser(id) {

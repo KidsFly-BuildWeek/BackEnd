@@ -1,9 +1,6 @@
 const request = require('supertest');
 const db = require('../../data/dbConfig.js');
 const auth = require('./authModel.js');
-const bc = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const authRouter = require('./authRouter.js');
 
 describe('auth tests', () => {
     beforeEach(async () => {
