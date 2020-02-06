@@ -13,7 +13,7 @@ async function getConnectionsForUser(id) {
     .join('flights', 'flights.id', 'connection_flights.flight_id')
     .join('users', 'users.id', 'connection_flights.user_id')
     .join('user_flights', 'user_flights.user_id', 'connection_flights.user_id')
-    .where('connection_flights.user_id', '=', id)
+    .where('connection_flights.connection_id', '=', id)
     .select('users.name as userName', 'users.email as userEmail', 'flights.airline', 'flights.airport', 'flights.flight_number', 'flights.flight_date', 'flights.flight_time', 'user_flights.carry_ons', 'user_flights.number_of_children', 'user_flights.special_needs_req', 'connection_flights.completed', 'connection.name as connectionName', 'connection.email as connectionEmail');
     return connection;
 }
