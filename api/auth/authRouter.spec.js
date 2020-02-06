@@ -5,11 +5,11 @@ const server = require('../server.js');
 
 describe('user auth tests', () => {
     beforeEach(async () => {
-        await db('users').truncate();
+        return await db('users').truncate();
     })
 
     afterEach(async () => {
-        await db('users').truncate();
+        return await db('users').truncate();
     })
 
     describe('auth endpoints', () => {

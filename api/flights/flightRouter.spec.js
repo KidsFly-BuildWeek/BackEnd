@@ -41,7 +41,7 @@ describe('flight endpoints', () => {
             await request(server)
             .post('/api/flights')
             // .set('Authorization', `Bearer ${token}`)
-            .set('Authorization', token)
+            .set('Authorization','Bearer' + token)
             .send({
                 airline: "Southwest", 
                 airport: "MCD",
