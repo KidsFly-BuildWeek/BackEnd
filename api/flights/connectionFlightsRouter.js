@@ -8,7 +8,6 @@ const restricted = require('../auth/restrictedMiddleware.js');
 router.get('/:email', async (req, res) => {
 
     const { id } = await connection_users.getConnectionUserByEmail(req.params.email);
-
     connection.getConnectionsForUser(id)
     .then(response => {
         return res.status(200).json(response);
@@ -76,7 +75,7 @@ router.delete('/:flight_number/:connection_email', async (req, res) => {
 router.put('/:flight_number/:connection_email', async (req, res) => {
     let flightId, connectionId = 0;
     let users_array = [];
-    const users = await user.getUsers()
+    const users = await connection_users.getUsers()
     users.map(element => {
         return users_array.push({
             user_id: element.id,

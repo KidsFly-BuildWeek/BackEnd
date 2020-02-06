@@ -1,12 +1,17 @@
 const db = require('../../data/dbConfig.js');
 
 module.exports = {
+    getUsers,
     getConnections,
     addConnectionUser,
     removeConnectionUser,
     // editConnectionUser,
     getConnectionUserById,
     getConnectionUserByEmail
+}
+
+function getUsers() {
+    return db('connection');
 }
 
 // This may need editing

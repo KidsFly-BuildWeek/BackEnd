@@ -7,7 +7,6 @@ const jwtSecret = process.env.JWT_SECRET || 'lk234k234lkjhbjbhz34ndfknJJGVC66745
 
 //Get all users
 router.get('/', restricted, (req, res) => {
-    console.log(req.fullUser.role)
     // if (req.fullUser && req.fullUser.role === 'admin') {
         auth.getUsers()
         .then(response => {
