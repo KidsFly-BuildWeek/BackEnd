@@ -8,6 +8,10 @@ describe('user auth tests', () => {
         await db('users').truncate();
     })
 
+    afterEach(async () => {
+        await db('users').truncate();
+    })
+
     describe('auth endpoints', () => {
         it('login user', async () => {
 
