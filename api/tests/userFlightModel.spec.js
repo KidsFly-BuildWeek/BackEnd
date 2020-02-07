@@ -1,10 +1,11 @@
 const db = require('../../data/dbConfig.js');
-const userFlights = require('./userFlightsModel.js');
+const userFlights = require('../flights/userFlightsModel.js');
 const users = require('../auth/authModel.js');
-const flights = require('./flightModel.js');
+const flights = require('../flights/flightModel.js');
 
 describe('auth tests', () => {
     beforeEach(async () => {
+        await db.raw('PRAGMA journal_mode = "OFF"');
         await db('users').truncate();
         await db('flights').truncate();
         await db('user_flights').truncate();

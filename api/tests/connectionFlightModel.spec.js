@@ -1,12 +1,13 @@
 const db = require('../../data/dbConfig.js');
-const userFlights = require('./userFlightsModel.js');
+const userFlights = require('../flights/userFlightsModel.js');
 const users = require('../auth/authModel.js');
-const flights = require('./flightModel.js');
+const flights = require('../flights/flightModel.js');
 const connectionUsers = require('../auth/connectionAuthModel.js');
-const connectionFlights = require('./connectionFlightModel.js');
+const connectionFlights = require('../flights/connectionFlightModel.js');
 
 describe('connection flight tests', () => {
     beforeEach(async () => {
+        await db.raw('PRAGMA journal_mode = "OFF"');
         await db('users').truncate();
         await db('flights').truncate();
         await db('user_flights').truncate();
@@ -15,9 +16,9 @@ describe('connection flight tests', () => {
     })
 
     it('add a connection flight', async () => {
-        await users.addUser({ email: "tim@tim.com", password: "tim" });
+        await users.addUser({ email: "tem@tim.com", password: "tim" });
 
-        const { id } = await users.findByEmail("tim@tim.com");
+        const { id } = await users.findByEmail("tem@tim.com");
 
         await flights.addFlight({
             airline: "Southwest",
@@ -56,9 +57,9 @@ describe('connection flight tests', () => {
     })
 
     it('remove a connection flight', async () => {
-        await users.addUser({ email: "tim@tim.com", password: "tim" });
+        await users.addUser({ email: "tam@tim.com", password: "tim" });
 
-        const { id } = await users.findByEmail("tim@tim.com");
+        const { id } = await users.findByEmail("tam@tim.com");
 
         await flights.addFlight({
             airline: "Southwest",
@@ -79,7 +80,7 @@ describe('connection flight tests', () => {
         })
 
         const connection_user = connectionUsers.addConnectionUser({
-            email: "tom@tom.com",
+            email: "tam@tom.com",
             password: "tom"
         })
 
@@ -94,9 +95,9 @@ describe('connection flight tests', () => {
      })
 
      it('edit a connection flight', async () => {
-        await users.addUser({ email: "tim@tim.com", password: "tim" });
+        await users.addUser({ email: "tum@tim.com", password: "tim" });
 
-        const { id } = await users.findByEmail("tim@tim.com");
+        const { id } = await users.findByEmail("tum@tim.com");
 
         await flights.addFlight({
             airline: "Southwest",
@@ -117,7 +118,7 @@ describe('connection flight tests', () => {
         })
 
         await connectionUsers.addConnectionUser({
-            email: "tom@tom.com",
+            email: "tum@tom.com",
             password: "tom"
         })
 

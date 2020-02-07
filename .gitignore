@@ -105,3 +105,4 @@ dist
 
 # test db
 *.db3
+*.db3-journal

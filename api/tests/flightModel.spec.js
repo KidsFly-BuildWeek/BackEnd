@@ -1,9 +1,10 @@
 const request = require('supertest');
 const db = require('../../data/dbConfig.js');
-const flights = require('./flightModel.js');
+const flights = require('../flights/flightModel.js');
 
 describe('flight tests', () => {
     beforeEach(async () => {
+        await db.raw('PRAGMA journal_mode = "OFF"');
         await db('flights').truncate();
     })
 

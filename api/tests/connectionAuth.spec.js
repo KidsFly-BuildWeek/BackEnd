@@ -1,8 +1,9 @@
 const db = require('../../data/dbConfig.js');
-const auth = require('./connectionAuthModel.js');
+const auth = require('../auth/connectionAuthModel.js');
 
 describe('connection auth tests', () => {
     beforeEach(async () => {
+        await db.raw('PRAGMA journal_mode = "OFF"');
         await db('connection').truncate();
     })
 
