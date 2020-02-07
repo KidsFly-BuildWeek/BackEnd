@@ -5,6 +5,7 @@ const server = require('../server.js');
 
 describe('connection auth tests', () => {
     beforeEach(async () => {
+        await db.raw('PRAGMA journal_mode = "OFF"');
         await db('connection').truncate();
     })
 
