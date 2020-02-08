@@ -31,6 +31,7 @@ router.post('/register', (req, res) => {
                         const signPackage = {
                             email: resp.email,
                             password: user.password,
+                            role: user.role
                         }
                         const token = signToken(signPackage);
                         if (resp.role.toLowerCase() === 'admin') {
