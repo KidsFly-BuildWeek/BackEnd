@@ -10,6 +10,17 @@ router.get('/', restricted, (req, res) => {
     })
 })
 
+router.get('/:flight_number', restricted, (req, res) => {
+    flight.getFlightByFlightNumber(req.params.flight_number)
+    .then(response => {
+        return res.status(200).json(response);
+    })
+    .catch(err => {
+        console.log(err);
+        return res.status(500).json({ error: "Error getting flight." });
+    })
+})
+
 router.post('/', restricted, async (req, res) => {
     try {
         const { airline, airport, flight_number, flight_date, flight_time } = req.body;
