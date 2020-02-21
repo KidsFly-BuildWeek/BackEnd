@@ -10,11 +10,11 @@ Kids Fly BE
 
 - URL `/auth`
 
-#### Get Users = `[GET] / !restricted `admin account needed`
+#### `[GET] / !restricted `admin account needed`
 
 Test your token, and role with this route.
 
-#### Register - `[POST] /register`
+#### `[POST] /register`
 
 ##### Request Body
 
